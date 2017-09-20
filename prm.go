@@ -45,10 +45,8 @@ func GenProduct(n int, items []string, gen func([]int, []string)) {
 }
 
 // generatePermutations() by nonrecursive Heap's method
-// practical numbers of permutation elements are small (<20), so use byte
-// to represent
+// practical numbers of permutation elements are small (<20)
 func GenPermutations(n int, items []string, gen func([]int, []string)) {
-	// generate permutations by nonrecursive Heap's method
 	c := make([]int, n)
 	a := make([]int, n)
 	for i, _ := range a {

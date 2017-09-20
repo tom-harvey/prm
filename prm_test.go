@@ -4,8 +4,6 @@ import (
 	"testing"
 )
 
-// const maxFactorial = 20 TODO can this be seen ?
-
 // calculate factorial to check the table-driven version
 func altFactorial(n int) uint64 {
 	result := uint64(1)
