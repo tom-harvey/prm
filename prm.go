@@ -1,3 +1,5 @@
+// Package prm provides functions for generating cartesian products and
+// permutations.
 package prm
 
 import (
@@ -13,6 +15,7 @@ var ftable = [maxFactorial + 1]uint64{1, 1, 2, 6, 24, 120, 720, 5040, 40320,
 	1307674368000, 20922789888000, 355687428096000, 6402373705728000,
 	121645100408832000, 2432902008176640000}
 
+// Factorial returns the integer factorial of a non-negative number.
 func Factorial(n int) uint64 {
 	if n <= maxFactorial {
 		return ftable[n]
@@ -20,8 +23,9 @@ func Factorial(n int) uint64 {
 	return 0 // TODO panic or complain
 }
 
-// generate cartesian product in lexicographic order
-// assumes 'items' are listed in lexicographic order
+// GenProduct generates the cartesian product of 'n' 'items'.
+// The output will be in the lexicographic order of 'items'. The supplied
+// 'gen' function is called for each element generated.
 func GenProduct(n int, items []string, gen func([]int, []string)) {
 	b := len(items)
 	top := b - 1
@@ -34,8 +38,7 @@ func GenProduct(n int, items []string, gen func([]int, []string)) {
 			if o[c] <= top {
 				break
 			}
-			// overflow on this column
-			if c == 0 {
+			if c == 0 { // overflow on the final column
 				return
 			}
 			o[c] = 0
@@ -44,8 +47,9 @@ func GenProduct(n int, items []string, gen func([]int, []string)) {
 	}
 }
 
-// generatePermutations() by nonrecursive Heap's method
-// practical numbers of permutation elements are small (<20)
+// GenPermutations generates permutations by nonrecursive Heap's method.
+// The supplied 'gen' function is called for each output generated.
+// Practical numbers of permutation elements are small (<20).
 func GenPermutations(n int, items []string, gen func([]int, []string)) {
 	c := make([]int, n)
 	a := make([]int, n)
